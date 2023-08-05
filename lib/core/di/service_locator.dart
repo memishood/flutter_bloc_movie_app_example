@@ -9,6 +9,10 @@ import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/g
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_popular_movies.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_top_rated_movies.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_upcoming_movies.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/latest_bloc.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/popular_bloc.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/top_rated_bloc.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/upcoming_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
@@ -46,5 +50,17 @@ void setUpMoviesPage() {
     )
     ..registerFactory<GetUpcomingMovies>(
       () => GetUpcomingMovies(getIt()),
+    )
+    ..registerFactory<LatestBloc>(
+      () => LatestBloc(getIt(), getIt()),
+    )
+    ..registerFactory<PopularBloc>(
+      () => PopularBloc(getIt(), getIt()),
+    )
+    ..registerFactory<TopRatedBloc>(
+      () => TopRatedBloc(getIt(), getIt()),
+    )
+    ..registerFactory<UpcomingBloc>(
+      () => UpcomingBloc(getIt(), getIt()),
     );
 }
