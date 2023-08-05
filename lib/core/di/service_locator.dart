@@ -5,6 +5,10 @@ import 'package:flutter_bloc_movie_app_example/features/movies/data/datasources/
 import 'package:flutter_bloc_movie_app_example/features/movies/data/repositories/movies_repository_impl.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/datasources/movies_remote_data_source.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/repositories/movies_repository.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_latest_movies.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_popular_movies.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_top_rated_movies.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/domain/usecases/get_upcoming_movies.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
@@ -30,5 +34,17 @@ void setUpMoviesPage() {
     )
     ..registerFactory<MoviesRepository>(
       () => MoviesRepositoryImpl(getIt()),
+    )
+    ..registerFactory<GetLatestMovies>(
+      () => GetLatestMovies(getIt()),
+    )
+    ..registerFactory<GetPopularMovies>(
+      () => GetPopularMovies(getIt()),
+    )
+    ..registerFactory<GetTopRatedMovies>(
+      () => GetTopRatedMovies(getIt()),
+    )
+    ..registerFactory<GetUpcomingMovies>(
+      () => GetUpcomingMovies(getIt()),
     );
 }
