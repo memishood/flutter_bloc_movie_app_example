@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_movie_app_example/core/di/service_locator.dart';
 import 'package:flutter_bloc_movie_app_example/core/extension/widget_extensions.dart';
+import 'package:flutter_bloc_movie_app_example/features/movie_details/presentation/movie_details_page.dart';
+import 'package:flutter_bloc_movie_app_example/features/movies/domain/entities/movie_entity.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/latest_bloc.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/presentation/bloc/top_rated_bloc.dart';
@@ -43,6 +45,15 @@ class _MoviesPageView extends StatefulWidget {
 }
 
 class _MoviesPageState extends State<_MoviesPageView> {
+  void _showMovieModal(MovieEntity movie) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const MovieDetailsPage(),
+      routeSettings: RouteSettings(arguments: movie),
+      showDragHandle: true,
+    );
+  }
+
   void _showErrorSnackbar(String errorMessage) {
     final snackbar = SnackBar(
       content: Text(errorMessage),
@@ -64,13 +75,11 @@ class _MoviesPageState extends State<_MoviesPageView> {
                   PopularFetched() => Image.network(
                       state.movies[Random().nextInt(state.movies.length)].image,
                     ),
-                  PopularLoading() =>
-                    const CircularProgressIndicator().toCenter(),
-                  PopularError() =>
-                    const Icon(Icons.wifi_off, size: 64).toCenter(),
+                  PopularLoading() => const CircularProgressIndicator(),
+                  PopularError() => const Icon(Icons.wifi_off),
                   _ => const SizedBox.shrink(),
                 },
-              ),
+              ).toCenter(),
             ),
             SliverList.list(
               children: [
@@ -91,7 +100,7 @@ class _MoviesPageState extends State<_MoviesPageView> {
                           .toCenter()
                           .paddingAll(12),
                       LatestFetched() => MoviesList(
-                          onTap: (movie) {},
+                          onTap: _showMovieModal,
                           movies: state.movies,
                         ),
                       _ => const SizedBox.shrink()
@@ -117,7 +126,7 @@ class _MoviesPageState extends State<_MoviesPageView> {
                           .toCenter()
                           .paddingAll(12),
                       PopularFetched() => MoviesList(
-                          onTap: (movie) {},
+                          onTap: _showMovieModal,
                           movies: state.movies,
                         ),
                       _ => const SizedBox.shrink()
@@ -142,7 +151,7 @@ class _MoviesPageState extends State<_MoviesPageView> {
                           .toCenter()
                           .paddingAll(12),
                       TopRatedFetched() => MoviesList(
-                          onTap: (movie) {},
+                          onTap: _showMovieModal,
                           movies: state.movies,
                         ),
                       _ => const SizedBox.shrink()
@@ -167,7 +176,7 @@ class _MoviesPageState extends State<_MoviesPageView> {
                           .toCenter()
                           .paddingAll(12),
                       UpcomingFetched() => MoviesList(
-                          onTap: (movie) {},
+                          onTap: _showMovieModal,
                           movies: state.movies,
                         ),
                       _ => const SizedBox.shrink()
