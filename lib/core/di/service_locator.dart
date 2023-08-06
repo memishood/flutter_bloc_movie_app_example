@@ -5,6 +5,7 @@ import 'package:flutter_bloc_movie_app_example/features/movie_details/data/datas
 import 'package:flutter_bloc_movie_app_example/features/movie_details/data/repositories/movie_details_repository_impl.dart';
 import 'package:flutter_bloc_movie_app_example/features/movie_details/domain/datasources/movie_details_remote_data_source.dart';
 import 'package:flutter_bloc_movie_app_example/features/movie_details/domain/repositories/movie_details_repository.dart';
+import 'package:flutter_bloc_movie_app_example/features/movie_details/domain/usecases/get_movie_details.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/data/datasources/movies_remote_data_source_impl.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/data/repositories/movies_repository_impl.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/domain/datasources/movies_remote_data_source.dart';
@@ -77,5 +78,8 @@ void setUpMovieDetailsPage() {
     )
     ..registerFactory<MovieDetailsRepository>(
       () => MovieDetailsRepositoryImpl(getIt()),
+    )
+    ..registerFactory<GetMovieDetails>(
+      () => GetMovieDetails(getIt()),
     );
 }
