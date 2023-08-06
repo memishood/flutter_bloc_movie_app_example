@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc_movie_app_example/features/movie_details/data/models/movie_details_response_model.dart';
 import 'package:flutter_bloc_movie_app_example/features/movies/data/models/movies_response_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -26,6 +27,11 @@ class ApiClient {
       '/movie/${movieType.endpoint}',
     );
     return MoviesResponseModel.fromJson(response.data!);
+  }
+
+  Future<MovieDetailsResponseModel> getMovie(int id) async {
+    final response = await _dio.get<Map<String, dynamic>>('/movie/$id');
+    return MovieDetailsResponseModel.fromJson(response.data!);
   }
 }
 
